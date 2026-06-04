@@ -1,5 +1,4 @@
 [build]
-  base = "mr"
   command = "npm run build"
   publish = ".next"
 
