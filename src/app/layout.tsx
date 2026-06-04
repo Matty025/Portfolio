@@ -6,6 +6,9 @@ import ChatWidget from "./components/ChatWidget";
 export const metadata: Metadata = {
 	title: "Portfolio",
 	description: "My personal portfolio",
+		icons: {
+		icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmWxXPjh2n4GxLykdslXG4XXjwlr6e_h_T0g&s",
+	},
 };
 
 export default function RootLayout({
