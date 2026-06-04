@@ -15,12 +15,10 @@
   align-self: start;
 }
 
-/* Left column: intro + projects */
 .leftCol {
   grid-template-rows: 3fr auto auto;
 }
 
-/* Right column: Featured Projects */
 .rightCol {
   grid-template-rows: 1fr;
 }
@@ -37,16 +35,40 @@
   opacity: 0.65;
 }
 
-
-
 .card {
   border: 1px solid color-mix(in srgb, var(--foreground) 14%, transparent);
   border-radius: 14px;
   background: color-mix(in srgb, var(--background) 98%, var(--foreground));
   padding: 16px;
   min-height: 0;
-  transition: border-color 160ms ease, transform 160ms ease,
-    background-color 160ms ease;
+  transition: border-color 200ms ease, transform 200ms ease,
+    background-color 200ms ease, box-shadow 200ms ease;
+}
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  list-style: none;
+}
+/* subtle hover lift on every card */
+@media (hover: hover) and (pointer: fine) {
+  .card:hover {
+    border-color: color-mix(in srgb, var(--foreground) 22%, transparent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+  }
+
+  /* intro card has a bg image — don't move it on hover */
+  .introCard:hover {
+    transform: none;
+    box-shadow: none;
+  }
 }
 
 .div3,
@@ -78,10 +100,12 @@
   display: flex;
   align-items: flex-end;
 }
+
 .heroTitle span {
   display: block;
   height: 20px;
 }
+
 .heroRole {
   margin: 6px 0 0;
   font-weight: 600;
@@ -142,6 +166,16 @@
   color: var(--foreground);
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    background: color-mix(in srgb, var(--foreground) 92%, var(--background));
+  }
+
+  .btnSecondary:hover {
+    background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  }
+}
+
 .social {
   margin-top: 12px;
   display: flex;
@@ -157,21 +191,8 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .btn:hover {
-    background: color-mix(in srgb, var(--foreground) 92%, var(--background));
-  }
-
-  .btnSecondary:hover {
-    background: color-mix(in srgb, var(--foreground) 8%, transparent);
-  }
-
   .social a:hover {
     opacity: 1;
-  }
-
-  .card:hover {
-    border-color: color-mix(in srgb, var(--foreground) 22%, transparent);
-    transform: translateY(-1px);
   }
 }
 
@@ -192,7 +213,6 @@
   padding: 18px;
   color: var(--intro-fg);
 }
-
 
 .introCard::before {
   content: "";
@@ -237,7 +257,8 @@
 .introBody .social {
   margin-top: 0;
 }
-/* Looping typewriter: type → hold → delete → repeat */
+
+/* ── typewriter loop ── */
 .typewriterLoop {
   display: inline-block;
   overflow: hidden;
@@ -254,39 +275,20 @@
 }
 
 @keyframes twLoop {
-  0% {
-    width: 0;
-  }
-  30% {
-    width: var(--tw-width);
-  }
-  60% {
-    width: var(--tw-width);
-  }
-  90% {
-    width: 0;
-  }
-  100% {
-    width: 0;
-  }
+  0%   { width: 0; }
+  30%  { width: var(--tw-width); }
+  60%  { width: var(--tw-width); }
+  90%  { width: 0; }
+  100% { width: 0; }
 }
 
 @keyframes twCaret {
-  /* Caret visible while typing/holding, hidden during delete */
-  0%,
-  2% {
-    border-right-color: transparent;
-  }
-  6%,
-  60% {
-    border-right-color: currentColor;
-  }
-  70%,
-  100% {
-    border-right-color: transparent;
-  }
+  0%, 2%    { border-right-color: transparent; }
+  6%, 60%   { border-right-color: currentColor; }
+  70%, 100% { border-right-color: transparent; }
 }
 
+/* ── stats ── */
 .stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -311,6 +313,7 @@
   opacity: 0.75;
 }
 
+/* ── project cards ── */
 .projectGrid {
   display: grid;
   grid-template-columns: 1fr;
@@ -338,8 +341,16 @@
   border-radius: 12px;
   padding: 0;
   background: color-mix(in srgb, var(--background) 85%, transparent);
-  transition: border-color 160ms ease, transform 160ms ease;
   overflow: hidden;
+  /* transition handled by Framer Motion whileHover */
+  transition: border-color 160ms ease;
+  will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .projectCard:hover {
+    border-color: color-mix(in srgb, var(--foreground) 26%, transparent);
+  }
 }
 
 .projectTopRow {
@@ -423,13 +434,7 @@
   background: color-mix(in srgb, var(--background) 78%, transparent);
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .projectCard:hover {
-    border-color: color-mix(in srgb, var(--foreground) 22%, transparent);
-    transform: translateY(-1px);
-  }
-}
-
+/* ── marquee / icon scroller ── */
 .iconScroller {
   margin-top: 10px;
   overflow: hidden;
@@ -489,6 +494,25 @@
   letter-spacing: -0.01em;
 }
 
+.iconScrollerReverse {
+  margin-top: 8px;
+}
+
+@keyframes scrollX {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollXReverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+.iconTrackReverse {
+  animation-name: scrollXReverse;
+}
+
+/* ── misc ── */
 .stackCard {
   display: flex;
   flex-direction: column;
@@ -565,15 +589,6 @@
   letter-spacing: -0.01em;
 }
 
-@keyframes scrollX {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 .expertiseList {
   margin: 10px 0 0;
   padding-left: 18px;
@@ -610,39 +625,17 @@
   align-items: center;
   text-decoration: none;
   color: inherit;
+  will-change: transform;
+  transition: border-color 160ms ease;
 }
 
-.iconScrollerReverse {
-  margin-top: 8px;
-}
-
-@keyframes scrollXReverse {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
+@media (hover: hover) and (pointer: fine) {
+  .contactChip:hover {
+    border-color: color-mix(in srgb, var(--foreground) 28%, transparent);
   }
 }
 
-.iconTrackReverse {
-  animation-name: scrollXReverse;
-}
-
-/* Screen-reader only — visually hidden accessible list */
-.srOnly {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-  list-style: none;
-}
-
+/* ── reduced motion ── */
 @media (prefers-reduced-motion: reduce) {
   .typewriterLoop {
     animation: none;
@@ -651,16 +644,19 @@
     padding-right: 0;
   }
 
-  .iconTrack {
+  .iconTrack,
+  .iconTrackReverse {
     animation: none;
   }
 
   .card,
-  .projectCard {
+  .projectCard,
+  .contactChip {
     transition: none;
   }
 }
 
+/* ── responsive ── */
 @media (max-width: 900px) {
   .parent {
     grid-template-columns: 1fr;
@@ -681,5 +677,4 @@
   .techStackBody {
     overflow: visible;
   }
-
 }

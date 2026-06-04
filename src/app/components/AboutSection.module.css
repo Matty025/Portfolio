@@ -11,6 +11,7 @@
   box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06);
   padding: 40px;
   color: #0f172a;
+  overflow: hidden;
 }
 
 .aboutSectionLabel {
@@ -55,6 +56,7 @@
   border: 3px solid #2dd4bf;
   display: block;
   margin: 0 auto 16px;
+  will-change: transform, opacity;
 }
 
 .aboutName {
@@ -63,6 +65,7 @@
   font-size: 0.875rem;
   font-weight: 600;
   color: #0f172a;
+  will-change: transform, opacity;
 }
 
 .aboutRole {
@@ -70,6 +73,7 @@
   text-align: center;
   font-size: 0.75rem;
   color: #2dd4bf;
+  will-change: transform, opacity;
 }
 
 .aboutDivider {
@@ -103,6 +107,7 @@
 
 .skillRow {
   margin-bottom: 0;
+  will-change: transform, opacity;
 }
 
 .skillMetaRow {
@@ -137,6 +142,7 @@
   height: 7px;
   border-radius: 4px;
   background: linear-gradient(to right, #38bdf8, #a78bfa);
+  will-change: width;
 }
 
 .bioParagraph {
@@ -144,6 +150,7 @@
   font-size: 0.875rem;
   line-height: 1.7;
   color: #1e293b;
+  will-change: transform, opacity;
 }
 
 .aboutAccent {
@@ -167,6 +174,7 @@
   border: 1px solid #2dd4bf;
   color: #0f766e;
   background: transparent;
+  will-change: transform, opacity;
 }
 
 .cvButton {
@@ -182,12 +190,13 @@
   color: #0f172a;
   background: #2dd4bf;
   text-decoration: none;
-  transition: background-color 160ms ease, transform 160ms ease;
+  will-change: transform, opacity;
+  transition: background-color 160ms ease, box-shadow 160ms ease;
 }
 
 .cvButton:hover {
   background: #5eead4;
-  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(45, 212, 191, 0.35);
 }
 
 .timelineList {
@@ -201,6 +210,7 @@
   flex-direction: row;
   gap: 16px;
   align-items: flex-start;
+  will-change: transform, opacity;
 }
 
 .timelineRail {
@@ -227,6 +237,7 @@
   margin-top: 6px;
   border-radius: 50%;
   background: #2dd4bf;
+  will-change: transform, opacity;
 }
 
 .timelineContent {
@@ -269,40 +280,56 @@
   color: #64748b;
 }
 
+/* dark mode */
+
 :global(html.dark) .aboutContainer {
   background: #0f172a;
   border-color: #1e293b;
   color: #f1f5f9;
 }
 
-:global(html.dark) .aboutHeading,
-:global(html.dark) .aboutName,
-:global(html.dark) .aboutSubHeading,
-:global(html.dark) .skillName,
-:global(html.dark) .skillValue,
-:global(html.dark) .timelineTitle {
+:global(html.dark) .aboutHeading {
   color: #f1f5f9;
 }
 
-:global(html.dark) .bioParagraph,
-:global(html.dark) .timelineDesc {
-  color: #e2e8f0;
+:global(html.dark) .aboutName {
+  color: #f1f5f9;
 }
 
-:global(html.dark) .timelineMeta,
-:global(html.dark) .timelineDate,
-:global(html.dark) .pill {
-  color: #cbd5e1;
-}
-
-:global(html.dark) .aboutRole {
-  color: #2dd4bf;
+:global(html.dark) .aboutSubHeading {
+  color: #f1f5f9;
 }
 
 :global(html.dark) .aboutSectionLabel,
 :global(html.dark) .aboutSubLabel,
+:global(html.dark) .aboutRole,
 :global(html.dark) .timelineLabel {
   color: #2dd4bf;
+}
+
+:global(html.dark) .bioParagraph {
+  color: #e2e8f0;
+}
+
+:global(html.dark) .skillName {
+  color: #f1f5f9;
+}
+
+:global(html.dark) .skillValue {
+  color: #cbd5e1;
+}
+
+:global(html.dark) .skillTrack {
+  background: #334155;
+}
+
+:global(html.dark) .aboutDivider {
+  background: #334155;
+}
+
+:global(html.dark) .pill {
+  color: #5eead4;
+  border-color: #2dd4bf;
 }
 
 :global(html.dark) .timelineTitle {
@@ -321,58 +348,7 @@
   color: #94a3b8;
 }
 
-:global(html.dark) .skillTrack {
-  background: #334155;
-}
-
-:global(html.dark) .aboutDivider {
-  background: #334155;
-}
-
-:global(html.dark) .pill {
-  color: #5eead4;
-  border-color: #2dd4bf;
-}
-
-:global(html.dark) .aboutName {
-  color: #f1f5f9;
-}
-
-:global(html.dark) .aboutSubHeading {
-  color: #f1f5f9;
-}
-
-:global(html.dark) .timelineLabel {
-  color: #2dd4bf;
-}
-
-:global(html.dark) .timelineTitle {
-  color: #f8fafc;
-}
-
-:global(html.dark) .timelineMeta {
-  color: #cbd5e1;
-}
-
-:global(html.dark) .timelineDesc {
-  color: #e2e8f0;
-}
-
-:global(html.dark) .skillName {
-  color: #f1f5f9;
-}
-
-:global(html.dark) .skillValue {
-  color: #cbd5e1;
-}
-
-:global(html.dark) .bioParagraph {
-  color: #e2e8f0;
-}
-
-:global(html.dark) .skillTrack {
-  background: #334155;
-}
+/* responsive */
 
 @media (max-width: 900px) {
   .aboutPage {
@@ -401,5 +377,19 @@
 
   .aboutPage {
     padding: 24px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skillFill,
+  .timelineDot,
+  .cvButton,
+  .pill,
+  .bioParagraph,
+  .skillRow,
+  .aboutProfileImage,
+  .timelineEntry {
+    will-change: auto;
+    transition: none;
   }
 }

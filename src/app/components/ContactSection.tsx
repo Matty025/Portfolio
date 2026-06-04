@@ -4,7 +4,7 @@ const contactLinks = [
   {
     label: "Email",
     icon: "mail",
-    href: "mailto:mathewbulawan@gmail.com",
+    href: "https://mail.google.com/mail/?view=cm&fs=1&to=mathewbulawan@gmail.com",
     value: "mathewbulawan@gmail.com",
   },
   {
